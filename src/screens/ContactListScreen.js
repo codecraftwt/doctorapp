@@ -3,7 +3,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity ,
   View,
   Modal,
   BackHandler,
