@@ -145,16 +145,19 @@ export default function Filter({setFilters, filters}) {
   }));
 
   const handleDateChange = (event, selectedDate) => {
-    setShowDatePicker(false); // Hide the picker after selection
-
+    setShowDatePicker(false);
+  
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split('T')[0]; // Format date properly
-
       if (selectedDateType === 'meetingDate') {
+        // Full date for meetings (YYYY-MM-DD)
+        const formattedDate = selectedDate.toISOString().split('T')[0];
         setMeetingDate(formattedDate);
         setIsMeetingDateSelected(true);
       } else if (selectedDateType === 'birthDate') {
-        setBirthDate(formattedDate);
+        // Month and day only (MM-DD format)
+        const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(selectedDate.getDate()).padStart(2, '0');
+        setBirthDate(`${month}-${day}`);
         setIsBirthDateSelected(true);
       }
     }
@@ -489,13 +492,13 @@ export default function Filter({setFilters, filters}) {
                   <Text style={styles.selectedValue}>{birthDate}</Text>
                 )}
                 {showDatePicker && selectedDateType === 'birthDate' && (
-                  <DateTimePicker
-                    value={birthDate ? new Date(birthDate) : new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={handleDateChange}
-                  />
-                )}
+  <DateTimePicker
+    value={new Date()} // Default to current date, year doesn't matter
+    mode="date"
+    display="default"
+    onChange={handleDateChange}
+  />
+)}
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={handleApplyFilters}>

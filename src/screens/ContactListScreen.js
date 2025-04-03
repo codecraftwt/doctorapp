@@ -68,10 +68,11 @@ export default function ContactListScreen({navigation}) {
           (!filters.meetingDate ||
             new Date(contact.date_of_meeting).toISOString().split('T')[0] ===
               new Date(filters.meetingDate).toISOString().split('T')[0]) &&
-          (!filters.birthDate ||
-            new Date(contact.birth_date).toISOString().split('T')[0] ===
-              new Date(filters.birthDate).toISOString().split('T')[0]),
-      );
+              (!filters.birthDate || 
+                (contact.birth_date &&
+                  contact.birth_date.split('T')[0].split('-').slice(1).join('-') === 
+                  filters.birthDate))
+          );
       setFilteredData(sortedData.reverse());
     }
   }, [searchInput, user, filters]);

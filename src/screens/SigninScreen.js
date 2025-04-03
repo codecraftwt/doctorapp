@@ -27,45 +27,45 @@ export default function SigninScreen() {
 
 
   const handleNext = () => {
-    // let valid = true;
-    // const tempErrors = {};
+    let valid = true;
+    const tempErrors = {};
 
-    // if (!username) {
-    //   tempErrors.username = 'Please enter your username.';
-    //   valid = false;
-    // }
-    // if (!password) {
-    //   tempErrors.password = 'Please enter your valid password.';
-    //   valid = false;
-    // }
+    if (!username) {
+      tempErrors.username = 'Please enter your username.';
+      valid = false;
+    }
+    if (!password) {
+      tempErrors.password = 'Please enter your valid password.';
+      valid = false;
+    }
 
-    // if (Object.keys(tempErrors).length > 0) {
-    //   setErrors(tempErrors);
-    //   return;
-    // }
+    if (Object.keys(tempErrors).length > 0) {
+      setErrors(tempErrors);
+      return;
+    }
 
-    // setErrors({});
+    setErrors({});
 
-    // console.log(username, password,'___________________>')
-    // // Uncomment this when you have your login functionality ready
-    // dispatch(login({ username, password }))
-    //   .unwrap()
-    //   .then( async (response) => {
-    //     if (response.status) {
-    // Toast.show({
-    //   text1: 'Login Successful',
-    //   type: 'success',
-    // });
-    // await AsyncStorage.setItem('username', response.username);
+    console.log(username, password,'___________________>')
+    // Uncomment this when you have your login functionality ready
+    dispatch(login({ username, password }))
+      .unwrap()
+      .then( async (response) => {
+        if (response.status) {
+    Toast.show({
+      text1: 'Login Successful',
+      type: 'success',
+    });
+    await AsyncStorage.setItem('username', response.username);
     navigation.navigate('ContactList');
-      //   } else {
-      //     Alert.alert('Login failed', 'Invalid username or password.');
-      //   }
-      // })
-      // .catch(error => {
-      //   console.log('Error: ' + error.message);
-      //   Alert.alert('Error', 'An error occurred while logging in.');
-      // });
+        } else {
+          Alert.alert('Login failed', 'Invalid username or password.');
+        }
+      })
+      .catch(error => {
+        console.log('Error: ' + error.message);
+        Alert.alert('Error', 'An error occurred while logging in.');
+      });
   };
 
   useEffect(() => {
